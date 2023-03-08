@@ -14,6 +14,19 @@ export class CreateUsers1678152642252 implements MigrationInterface {
             default: 'uuid_generate_v4()',
           },
           {
+            name: 'firstName',
+            type: 'varchar',
+          },
+          {
+            name: 'lastName',
+            type: 'varchar',
+          },
+          {
+            name: 'userName',
+            type: 'varchar',
+            isUnique: true,
+          },
+          {
             name: 'email',
             type: 'varchar',
             isUnique: true,
@@ -23,7 +36,7 @@ export class CreateUsers1678152642252 implements MigrationInterface {
             type: 'varchar',
           },
           {
-            name: 'status',
+            name: 'isActive',
             type: 'boolean',
             default: true,
           },
@@ -39,7 +52,7 @@ export class CreateUsers1678152642252 implements MigrationInterface {
               'manager',
               'external',
             ],
-            default: 'user',
+            default: `'user'`,
           },
           {
             name: 'createdAt',

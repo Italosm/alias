@@ -1,4 +1,5 @@
 import { DataSource } from 'typeorm';
+import { CreateUsers1678152642252 } from './migrations/1678152642252-CreateUsers';
 
 export const dataSource = new DataSource({
   type: 'postgres',
@@ -11,5 +12,5 @@ export const dataSource = new DataSource({
   logging: true,
   entities: [],
   subscribers: [],
-  migrations: [],
+  migrations: [CreateUsers1678152642252],
 });
