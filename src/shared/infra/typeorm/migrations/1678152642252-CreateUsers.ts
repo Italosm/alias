@@ -53,7 +53,6 @@ export class CreateUsers1678152642252 implements MigrationInterface {
               'ghost',
             ],
             isArray: true,
-            default: `'ghost'`,
           },
           {
             name: 'createdAt',

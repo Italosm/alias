@@ -42,7 +42,8 @@ class User {
   @Column({
     type: 'enum',
     enum: UserRole,
-    default: UserRole.GHOST,
+    array: true,
+    default: [UserRole.GHOST],
   })
   role: UserRole[];
 
