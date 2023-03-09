@@ -50,8 +50,9 @@ export class CreateUsers1678152642252 implements MigrationInterface {
               'sac',
               'billing',
               'manager',
-              'external',
+              'ghost',
             ],
+            isArray: true,
             default: `'user'`,
           },
           {

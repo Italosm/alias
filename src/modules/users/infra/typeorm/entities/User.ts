@@ -13,7 +13,7 @@ export enum UserRole {
   SAC = 'sac',
   BILLING = 'billing',
   MANAGER = 'manager',
-  EXTERNAL = 'external',
+  GHOST = 'ghost',
 }
 
 @Entity('users')
@@ -42,9 +42,9 @@ class User {
   @Column({
     type: 'enum',
     enum: UserRole,
-    default: UserRole.USER,
+    default: UserRole.GHOST,
   })
-  role: UserRole;
+  role: UserRole[];
 
   @CreateDateColumn()
   createdAt: Date;
