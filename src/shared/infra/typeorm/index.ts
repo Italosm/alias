@@ -1,5 +1,5 @@
 import { DataSource } from 'typeorm';
-import { CreateUsers1678152642252 as CreateUsers } from './migrations/1678152642252-CreateUsers';
+import { CreateUsers } from './migrations/CreateUsers';
 import User from '@modules/users/infra/typeorm/entities/User';
 
 export const dataSource = new DataSource({
