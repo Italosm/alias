@@ -5,9 +5,7 @@ import { ICreateUser } from '@modules/users/domain/models/ICreateUser';
 import { IUsersRepository } from '@modules/users/domain/repositories/IUsersRepository';
 import User from '../entities/User';
 import { SearchParams } from '@modules/users/domain/repositories/IUsersRepository';
-import { injectable } from 'tsyringe';
 
-@injectable()
 class UsersRepository implements IUsersRepository {
   private ormRepository: Repository<User>;
   constructor() {
