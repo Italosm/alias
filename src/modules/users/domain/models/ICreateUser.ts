@@ -4,6 +4,7 @@ export interface ICreateUser {
   firstName: string;
   lastName: string;
   userName: string;
+  isActive: boolean;
   email: string;
   password: string;
   role: UserRole[];

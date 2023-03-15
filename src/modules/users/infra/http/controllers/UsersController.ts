@@ -4,7 +4,7 @@ import ShowUserService from '@modules/users/services/ShowUserService';
 import { Request, Response } from 'express';
 import { container } from 'tsyringe';
 
-export default class UsersController {
+class UsersController {
   public async index(request: Request, response: Response): Promise<Response> {
     const page = request.query.page ? Number(request.query.page) : 1;
     const limit = request.query.limit ? Number(request.query.limit) : 15;
@@ -24,7 +24,7 @@ export default class UsersController {
   }
 
   public async create(request: Request, response: Response): Promise<Response> {
-    const { firstName, lastName, userName, email, password, role } =
+    const { firstName, lastName, userName, email, password, role, isActive } =
       request.body;
 
     const createUser = container.resolve(CreateUserService);
@@ -34,6 +34,7 @@ export default class UsersController {
       lastName,
       userName,
       email,
+      isActive,
       password,
       role,
     });
@@ -41,3 +42,5 @@ export default class UsersController {
     return response.json(user);
   }
 }
+
+export default UsersController;
