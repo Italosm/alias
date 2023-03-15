@@ -2,7 +2,7 @@ import { ICreateUser } from '../models/ICreateUser';
 import { IPaginateUser } from '../models/IPaginateUser';
 import { IUser } from '../models/IUser';
 
-type SearchParams = {
+export type SearchParams = {
   page: number;
   skip: number;
   take: number;

@@ -1,52 +1,73 @@
 import { dataSource } from '@shared/infra/typeorm';
-import User from '../entities/User';
 import { Repository } from 'typeorm';
-import { IUsersRepository } from '@modules/users/domain/repositories/IUsersRepository';
-import { IUser } from '@modules/users/domain/models/IUser';
 import { IPaginateUser } from '@modules/users/domain/models/IPaginateUser';
 import { ICreateUser } from '@modules/users/domain/models/ICreateUser';
-import { IShowUser } from '@modules/users/domain/models/IShowUser';
-
-type SearchParams = {
-  page: number;
-  skip: number;
-  take: number;
-};
+import { IUsersRepository } from '@modules/users/domain/repositories/IUsersRepository';
+import User from '../entities/User';
+import { SearchParams } from '@modules/users/domain/repositories/IUsersRepository';
 
 class UsersRepository implements IUsersRepository {
   private ormRepository: Repository<User>;
   constructor() {
     this.ormRepository = dataSource.getRepository(User);
   }
-  public async findByUserName(userName: string): Promise<IUser | null> {
+  public async findByUserName(userName: string): Promise<User | null> {
     const user = await this.ormRepository.findOneBy({
       userName,
     });
     return user;
   }
-  findAll({
-    page,
-    skip,
-    take,
-  }: {
-    page: number;
-    skip: number;
-    take: number;
-  }): Promise<IPaginateUser> {
-    throw new Error('Method not implemented.');
+  async findAll({ page, skip, take }: SearchParams): Promise<IPaginateUser> {
+    const [users, count] = await this.ormRepository
+      .createQueryBuilder()
+      .skip(skip)
+      .take(take)
+      .getManyAndCount();
+
+    const result = {
+      per_page: take,
+      total: count,
+      current_page: page,
+      data: users,
+    };
+
+    return result;
   }
 
-  findById(userId: string): Promise<IUser | null> {
-    throw new Error('Method not implemented.');
+  async findById(userId: string): Promise<User | null> {
+    const user = await this.ormRepository.findOneBy({
+      userId,
+    });
+    return user;
   }
-  findByEmail(email: string): Promise<IUser | null> {
-    throw new Error('Method not implemented.');
+  async findByEmail(email: string): Promise<User | null> {
+    const user = await this.ormRepository.findOneBy({
+      email,
+    });
+    return user;
   }
-  create(data: ICreateUser): Promise<IUser> {
-    throw new Error('Method not implemented.');
+  async create({
+    firstName,
+    lastName,
+    userName,
+    email,
+    passwordHash,
+    role,
+  }: ICreateUser): Promise<User> {
+    const user = this.ormRepository.create({
+      firstName,
+      lastName,
+      userName,
+      email,
+      passwordHash,
+      role,
+    });
+    await this.ormRepository.save(user);
+    return user;
   }
-  save(user: IUser): Promise<IUser> {
-    throw new Error('Method not implemented.');
+  async save(user: User): Promise<User> {
+    await this.ormRepository.save(user);
+    return user;
   }
 }
 

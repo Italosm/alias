@@ -4,14 +4,14 @@ import { IUsersRepository } from '../domain/repositories/IUsersRepository';
 import AppError from '@shared/errors/AppError';
 import { UserRole } from '../infra/typeorm/entities/User';
 
-class CreateUserService {
+export default class CreateUserService {
   ghost = UserRole.GHOST;
   public async execute({
     firstName,
     lastName,
     userName,
     email,
-    password,
+    passwordHash,
     role = [this.ghost],
   }: ICreateUser): Promise<IUser> {}
 }
