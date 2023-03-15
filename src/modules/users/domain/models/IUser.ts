@@ -6,7 +6,8 @@ export interface IUser {
   lastName: string;
   userName: string;
   email: string;
-  passwordHash: string;
+  isActive: boolean;
+  password: string;
   role: UserRole[];
   createdAt: Date;
   updatedAt: Date;

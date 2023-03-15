@@ -34,7 +34,7 @@ class User {
   email: string;
 
   @Column()
-  passwordHash: string;
+  password: string;
 
   @Column('boolean')
   isActive: boolean;

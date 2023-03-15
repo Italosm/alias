@@ -51,7 +51,7 @@ class UsersRepository implements IUsersRepository {
     lastName,
     userName,
     email,
-    passwordHash,
+    password,
     role,
   }: ICreateUser): Promise<User> {
     const user = this.ormRepository.create({
@@ -59,7 +59,7 @@ class UsersRepository implements IUsersRepository {
       lastName,
       userName,
       email,
-      passwordHash,
+      password,
       role,
     });
     await this.ormRepository.save(user);
