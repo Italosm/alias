@@ -10,7 +10,7 @@ export const dataSource = new DataSource({
   password: 'inbrap',
   database: 'inbrap',
   synchronize: true,
-  logging: true,
+  logging: false,
   entities: [User],
   subscribers: [],
   migrations: [CreateUsers],

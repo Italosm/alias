@@ -1,3 +1,4 @@
+import usersRouter from '@modules/users/infra/http/routes/users.routes';
 import { Router } from 'express';
 
 const routes = Router();
@@ -5,5 +6,6 @@ const routes = Router();
 routes.get('/', (req, res) => {
   return res.json({ message: 'Hello World!' });
 });
+routes.use('/users', usersRouter);
 
 export default routes;

@@ -5,7 +5,7 @@ import {
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
-
+import { Exclude } from 'class-transformer';
 export enum UserRole {
   ADMIN = 'admin',
   USER = 'user',
@@ -34,6 +34,7 @@ class User {
   email: string;
 
   @Column()
+  @Exclude()
   password: string;
 
   @Column('boolean')
@@ -45,6 +46,7 @@ class User {
     array: true,
     default: [UserRole.GHOST],
   })
+  @Exclude()
   role: UserRole[];
 
   @CreateDateColumn()

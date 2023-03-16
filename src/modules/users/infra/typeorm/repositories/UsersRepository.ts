@@ -12,6 +12,37 @@ class UsersRepository implements IUsersRepository {
     this.ormRepository = dataSource.getRepository(User);
   }
 
+  public async create({
+    firstName,
+    lastName,
+    userName,
+    email,
+    isActive,
+    password,
+    role,
+  }: ICreateUser): Promise<User> {
+    const user = this.ormRepository.create({
+      firstName,
+      lastName,
+      userName,
+      email,
+      isActive,
+      password,
+      role,
+    });
+    await this.ormRepository.save(user);
+    return user;
+  }
+
+  public async save(user: User): Promise<User> {
+    await this.ormRepository.save(user);
+    return user;
+  }
+
+  public async remove(user: User): Promise<void> {
+    await this.ormRepository.remove(user);
+  }
+
   public async findByUserName(userName: string): Promise<User | null> {
     const user = await this.ormRepository.findOneBy({
       userName,
@@ -49,31 +80,6 @@ class UsersRepository implements IUsersRepository {
     const user = await this.ormRepository.findOneBy({
       email,
     });
-    return user;
-  }
-  public async create({
-    firstName,
-    lastName,
-    userName,
-    email,
-    isActive,
-    password,
-    role,
-  }: ICreateUser): Promise<User> {
-    const user = this.ormRepository.create({
-      firstName,
-      lastName,
-      userName,
-      email,
-      isActive,
-      password,
-      role,
-    });
-    await this.ormRepository.save(user);
-    return user;
-  }
-  public async save(user: User): Promise<User> {
-    await this.ormRepository.save(user);
     return user;
   }
 }
