@@ -37,7 +37,10 @@ class User {
   @Exclude()
   password: string;
 
-  @Column('boolean')
+  @Column({
+    type: 'boolean',
+    default: true,
+  })
   isActive: boolean;
 
   @Column({

@@ -1,11 +1,22 @@
 import { Router } from 'express';
 import { celebrate, Joi, Segments } from 'celebrate';
 import UsersController from '../controllers/UsersController';
+import { UserRole } from '../../typeorm/entities/User';
 
 const usersRouter = Router();
 const usersController = new UsersController();
 
 usersRouter.get('/', usersController.index);
+
+usersRouter.get(
+  '/:id',
+  celebrate({
+    [Segments.PARAMS]: {
+      id: Joi.string().uuid().required(),
+    },
+  }),
+  usersController.show,
+);
 
 usersRouter.post(
   '/',
@@ -17,7 +28,7 @@ usersRouter.post(
       email: Joi.string().required(),
       password: Joi.string().required(),
       isActive: Joi.boolean().default(true),
-      userRole: Joi.array(),
+      roles: Joi.array<UserRole>().default([UserRole.GHOST]),
     },
   }),
   usersController.create,

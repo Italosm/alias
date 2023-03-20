@@ -7,7 +7,7 @@ import { IUser } from '../domain/models/IUser';
 @injectable()
 class CreateUserService {
   constructor(
-    @inject('UsersRepository') //TODO:
+    @inject('UsersRepository')
     private usersRepository: IUsersRepository,
   ) {}
   public async execute({
@@ -20,15 +20,13 @@ class CreateUserService {
     role,
   }: ICreateUser): Promise<IUser> {
     const emailExists = await this.usersRepository.findByEmail(email);
-    const userNameExists = await this.usersRepository.findByUserName(userName);
     if (emailExists) {
       throw new AppError('Email address already used.');
     }
-
+    const userNameExists = await this.usersRepository.findByUserName(userName);
     if (userNameExists) {
       throw new AppError('userName already used.');
     }
-
     const user = await this.usersRepository.create({
       firstName,
       lastName,
@@ -38,7 +36,6 @@ class CreateUserService {
       password,
       role,
     });
-
     return user;
   }
 }

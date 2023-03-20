@@ -3,7 +3,7 @@ import ListUserService from '@modules/users/services/ListUserService';
 import ShowUserService from '@modules/users/services/ShowUserService';
 import { Request, Response } from 'express';
 import { container } from 'tsyringe';
-import { instanceToPlain } from 'class-transformer';
+import { instanceToInstance } from 'class-transformer';
 
 class UsersController {
   public async index(request: Request, response: Response): Promise<Response> {
@@ -11,7 +11,7 @@ class UsersController {
     const limit = request.query.limit ? Number(request.query.limit) : 15;
     const listUser = container.resolve(ListUserService);
     const users = await listUser.execute({ page, limit });
-    return response.json(instanceToPlain(users));
+    return response.json(instanceToInstance(users));
   }
 
   public async show(request: Request, response: Response): Promise<Response> {
@@ -21,15 +21,14 @@ class UsersController {
 
     const user = await showUser.execute({ userId });
 
-    return response.json(user);
+    return response.json(instanceToInstance(user));
   }
 
   public async create(request: Request, response: Response): Promise<Response> {
-    const { firstName, lastName, userName, email, password, role, isActive } =
+    const { firstName, lastName, userName, email, password, roles, isActive } =
       request.body;
-
+    const role = roles;
     const createUser = container.resolve(CreateUserService);
-
     const user = await createUser.execute({
       firstName,
       lastName,
@@ -40,7 +39,7 @@ class UsersController {
       role,
     });
 
-    return response.json(user);
+    return response.json(instanceToInstance(user));
   }
 }
 
