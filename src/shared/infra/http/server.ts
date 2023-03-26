@@ -1,6 +1,7 @@
 /* eslint-disable no-console */
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import 'reflect-metadata';
+import 'dotenv/config';
 import { app } from './app';
 import { dataSource } from '@shared/infra/typeorm';
 
